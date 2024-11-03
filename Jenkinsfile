@@ -1,37 +1,43 @@
+@Library('jenkins-shared-library') _
+def gv
+
 pipeline {
-   agent any
+    agent any
+    tools {
+        maven 'maven-3.9'
+    }
 
-   stages {
-      stage('Build Jar File') {
-         steps {
-            script {
-               echo 'Building the app'
+    stages {
+        stage("init") {
+            steps {
+                script {
+                    gv = load "script.groovy"
+                }
             }
-         }
-      }
+        }
 
-      stage('build image') {
-         when {
-            expression {
-               // Use env.BRANCH_NAME to access the environment variable
-               env.BRANCH_NAME == 'main'
+        stage('Build Jar File') {
+            steps {
+                script {
+                    buildJar()
+                }
             }
-         }
-         steps {
-            echo 'Building the image !!!'
-         }
-      }
+        }
 
-      stage('Deploy') {
-         when {
-            expression {
-               // Use env.BRANCH_NAME to access the environment variable
-               env.BRANCH_NAME == 'main'
+        stage('build image') {
+            steps {
+                script {
+                    buildImage()
+                }
             }
-         }
-         steps {
-            echo 'Deploying the app'
-         }
-      }
-   }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    echo 'Deploying the app'
+                }
+            }
+        }
+    }
 }
