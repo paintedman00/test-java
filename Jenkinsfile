@@ -13,7 +13,8 @@ pipeline {
       stage('build image') {
          when {
             expression {
-               BRANCH_NAME == 'main'
+               // Use env.BRANCH_NAME to access the environment variable
+               env.BRANCH_NAME == 'main'
             }
          }
          steps {
@@ -24,7 +25,8 @@ pipeline {
       stage('Deploy') {
          when {
             expression {
-               BRANCH_NAME == 'main'
+               // Use env.BRANCH_NAME to access the environment variable
+               env.BRANCH_NAME == 'main'
             }
          }
          steps {
