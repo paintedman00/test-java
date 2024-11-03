@@ -1,7 +1,6 @@
-@Library('jenkins-shared-library') 
+@Library('jenkins-shared-library')
 
  def gv
-
 
 pipeline {
    agent any
@@ -13,7 +12,6 @@ pipeline {
       stage('init') {
             steps {
             script {
-              
             }
             }
       }
