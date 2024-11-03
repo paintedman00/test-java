@@ -11,28 +11,24 @@ pipeline {
       }
 
       stage('build image') {
-         steps {
-            script {
-               when {
-                  expression {
-                     BRANCH_NAME == 'main'
-                  }
-                  echo 'Building the image !!!'
-               }
+         when {
+            expression {
+               BRANCH_NAME == 'main'
             }
+         }
+         steps {
+            echo 'Building the image !!!'
          }
       }
 
       stage('Deploy') {
-         steps {
-            script {
-               when {
-                  expression {
-                     BRANCH_NAME == 'main'
-                  }
-               }
-               echo 'Deploying the app'
+         when {
+            expression {
+               BRANCH_NAME == 'main'
             }
+         }
+         steps {
+            echo 'Deploying the app'
          }
       }
    }
